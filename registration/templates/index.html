@@ -2,10 +2,20 @@
 
 {% block content %}
 <div class="container">
-  <div class="jumbotron text-white text-center" style='background-color: rgba(74, 10, 34, 80); width: 500px; align-center; margin: auto'>
+  <div class="jumbotron text-white text-center" style='background-color: rgb(8, 97, 95); width: 500px; align-center; margin: auto'>
+    {% if request.user.is_authenticated %}
+    <h1>Hi! {{user.username}}</h1>
+    <br><br>
+    {% endif %}
     <h1>Welcome to registration</h1>
     <br>
     <p>This project will help you in every other project to <h5><strong>Create Users and Authenticate them.</strong></h5>  </p>
+    <br>
+    <h5>Some more possiblities are:</h5>
+    <ul>
+      <li>Email Verification, involving mailgun service. (From simpleIsBetterThanComplex)</li>
+
+    </ul>
   </div>
 
 </div>

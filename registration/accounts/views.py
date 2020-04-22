@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from accounts.models import UserProfile
-from django.views.generic import CreateView
+from django.contrib.auth import login, authenticate
 from .forms import UserProfileForm, UserForm
+# from django.contrib.auth.models import User
+# from accounts.models import UserProfile
+
 # Create your views here.
 def SignupView(request):
 
@@ -16,6 +17,10 @@ def SignupView(request):
             user=user_form.save(commit=False)
             user.set_password(user.password)
             user.save()
+            # username=user.username
+            # password=user.password
+            username=user_form.cleaned_data['username']
+            password=user_form.cleaned_data['password']
 
             profile=profile_form.save(commit=False)
             profile.user=user
@@ -25,6 +30,10 @@ def SignupView(request):
 
             profile.save()
             Registered=True
+
+            user=authenticate(username=username , password=password)
+            login(request, user)
+            return redirect('index')
         else:
             print(user_form.errors, profile_form.errors)
 
